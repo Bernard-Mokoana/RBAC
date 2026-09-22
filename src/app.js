@@ -1,6 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
 
+dotenv.config();
+
 import { authRouter } from "./routes/auth.js";
 import { contentRouter } from "./routes/content.js";
 import { adminRouter } from "./routes/admin.js";
@@ -17,7 +19,13 @@ app.get("/", (req, res) => {
   res.json({ message: "RBAC API is running" });
 });
 
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
+const PORT = process.env.PORT || 3000;
+const server = app.listen(PORT, (err) => {
+  if (err) {
+    console.error(`Failed to start server on port ${PORT}:`, err);
+    return;
+  }
   console.log(`Server running on port ${PORT}`);
 });
+
+export { app, server };

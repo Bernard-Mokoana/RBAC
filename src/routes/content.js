@@ -5,7 +5,7 @@ const contentRouter = express.Router();
 
 // In-memory content store - Use pgsql later
 const content = [
-  { id: "1", tile: "Getting started with Node.js", author: "admin" },
+  { id: "1", title: "Getting started with Node.js", author: "admin" },
   { id: "2", title: "Express Middleware Explained", author: "editor" },
 ];
 
@@ -26,7 +26,7 @@ contentRouter.post(
     const { title } = req.body;
 
     if (!title) {
-      return res.status(400).json({ message: "Title is required " });
+      return res.status(400).json({ message: "Title is required" });
     }
 
     const newItem = {
@@ -44,11 +44,11 @@ contentRouter.delete("/:id", verifyToken, checkRole("admin"), (req, res) => {
   const index = content.findIndex((c) => c.id === req.params.id);
 
   if (index === -1) {
-    return res.status(404).json({ message: "Content not found " });
+    return res.status(404).json({ message: "Content not found" });
   }
 
   content.splice(index, 1);
-  res.json({ message: "Content deleted successfully " });
+  res.json({ message: "Content deleted successfully" });
 });
 
 export { contentRouter };
